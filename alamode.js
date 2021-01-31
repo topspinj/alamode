@@ -2043,7 +2043,7 @@ var alamode = {
     })
 
     if (!valueRange) {
-      colorDomain = d3.extent(data, function(d) { return Math.log(d[valueColumn]); });
+      colorDomain = d3.extent(data, function(d) { return d[valueColumn]; });
 
       if(data.length <= 1){
         colorDomain.unshift(0)
@@ -2069,7 +2069,7 @@ var alamode = {
           .data(topojson.feature(world, world.objects.countries).features)
         .enter().append("path")
           .attr("class","mode-world-chorolpleth-countries")
-          .attr("fill", function(d) { return quantize(rateById.get(Math.log(d.properties[code]))); })
+          .attr("fill", function(d) { return quantize(rateById.get(d.properties[code])); })
           .attr("d", path)
           .on("mouseover",function(d) {
             var country = d.properties.name;
@@ -2080,7 +2080,7 @@ var alamode = {
               value = "--"
             }
 
-            d3.select("#mode-world-chorolpleth-legend-" + id).text(country + ": " + value)
+            d3.select("#mode-world-chorolpleth-legend-" + id).text(country + ": " + Math.round(Math.pow(10,value)))
           })
           .on("mouseout",function(d) {
             d3.select("#mode-world-chorolpleth-legend-" + id).text("Hover over a country to see details")
