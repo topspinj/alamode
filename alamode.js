@@ -1996,6 +1996,7 @@ var alamode = {
     var queryName = o["query_name"],
         countryColumn = o["country_column"],
         valueColumn = o["value_column"],
+        labelColumn = o["label_column"],
         code = o["country_code_type"], // Options: name, iso_code_numeric, iso_code_alpha_2, iso_code_alpha_3
         // Optional
         width = o["width"] || 950,
@@ -2080,7 +2081,7 @@ var alamode = {
               value = "--"
             }
 
-            d3.select("#mode-world-chorolpleth-legend-" + id).text(country + ": " + value)
+            d3.select("#mode-world-chorolpleth-legend-" + id).text(country + ": " + labelColumn || '--')
           })
           .on("mouseout",function(d) {
             d3.select("#mode-world-chorolpleth-legend-" + id).text("Hover over a country to see details")
