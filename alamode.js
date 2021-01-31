@@ -1996,7 +1996,6 @@ var alamode = {
     var queryName = o["query_name"],
         countryColumn = o["country_column"],
         valueColumn = o["value_column"],
-        labelColumn = o["label_column"],
         code = o["country_code_type"], // Options: name, iso_code_numeric, iso_code_alpha_2, iso_code_alpha_3
         // Optional
         width = o["width"] || 950,
@@ -2040,7 +2039,7 @@ var alamode = {
         .attr("height",height);
 
     data.forEach( function(d) {
-      rateById.set(d[countryColumn],+[d[valueColumn], d[labelColumn]]);
+      rateById.set(d[countryColumn],+d[valueColumn]);
     })
 
     if (!valueRange) {
@@ -2070,18 +2069,18 @@ var alamode = {
           .data(topojson.feature(world, world.objects.countries).features)
         .enter().append("path")
           .attr("class","mode-world-chorolpleth-countries")
-          .attr("fill", function(d) { return quantize(rateById.get(d.properties[code][0])); })
+          .attr("fill", function(d) { return quantize(rateById.get(Math.log(d.properties[code]))); })
           .attr("d", path)
           .on("mouseover",function(d) {
             var country = d.properties.name;
 
-            // if (rateById.get(d.properties[code])) {
-            //   value = rateById.get(d.properties[code][1]);
-            // } else {
-            //   value = "--"
-            // }
+            if (rateById.get(d.properties[code])) {
+              value = rateById.get(d.properties[code]);
+            } else {
+              value = "--"
+            }
 
-            d3.select("#mode-world-chorolpleth-legend-" + id).text(country + ": " + d.properties[code][1] || '--')
+            d3.select("#mode-world-chorolpleth-legend-" + id).text(country + ": " + value)
           })
           .on("mouseout",function(d) {
             d3.select("#mode-world-chorolpleth-legend-" + id).text("Hover over a country to see details")
