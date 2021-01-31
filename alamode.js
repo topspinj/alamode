@@ -2075,12 +2075,12 @@ var alamode = {
             var country = d.properties.name;
 
             if (rateById.get(d.properties[code])) {
-              value = rateById.get(d.properties[code]);
+              value = Math.round(Math.pow(10,rateById.get(d.properties[code])));
             } else {
               value = "--"
             }
 
-            d3.select("#mode-world-chorolpleth-legend-" + id).text(country + ": " + Math.round(Math.pow(10,value)))
+            d3.select("#mode-world-chorolpleth-legend-" + id).text(country + ": " + value)
           })
           .on("mouseout",function(d) {
             d3.select("#mode-world-chorolpleth-legend-" + id).text("Hover over a country to see details")
