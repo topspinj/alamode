@@ -2081,7 +2081,7 @@ var alamode = {
               value = "--"
             }
 
-            d3.select("#mode-world-chorolpleth-legend-" + id).text(country + ": " + '3' || '--')
+            d3.select("#mode-world-chorolpleth-legend-" + id).text(country + ": " + labelColumn || '--')
           })
           .on("mouseout",function(d) {
             d3.select("#mode-world-chorolpleth-legend-" + id).text("Hover over a country to see details")
