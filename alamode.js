@@ -2043,7 +2043,7 @@ var alamode = {
     })
 
     if (!valueRange) {
-      colorDomain = d3.extent(data, function(d) { return d[valueColumn]; });
+      colorDomain = d3.extent(data, function(d) { return Math.log(d[valueColumn]); });
 
       if(data.length <= 1){
         colorDomain.unshift(0)
